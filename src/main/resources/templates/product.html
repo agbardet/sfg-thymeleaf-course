@@ -133,31 +133,58 @@
 </head>
 <body>
 
-<div class="jumbotron">
+<div class="jumbotron" th:replace="fragments/jumbotron :: jumbotron">
     <div class="container">
         <h1>Spring Framework Guru</h1>
         <p class="lead" th:text="#{index.courses.tagline}">Online Courses for Spring Framework</p>
     </div>
 </div>
 
-<div class="container">
+<div class="container" style="height: 100vh;">
     <div class="row">
         <div class="col-md-12">
-            <h1>Spring Framework Guru - Course Name</h1>
+            <h1 th:text="${product.courseName}">Spring Framework Guru - Course Name</h1>
         </div>
     </div>
-    <div class="row">
+    <div class="row course-listing">
         <div class="col-md-6">
-
-                <img src="../static/images/SpringIntroThumb.png"
-                     th:src="@{images/SpringIntroThumb.png}"
-                     class="center-block"/>
-
+           <div class="row">
+               <div class="col-md-12">
+                   <img src="../static/images/SpringIntroThumb.png"
+                        th:src="@{'/images/'+${product.imageUrl}}"
+                        class="center-block"/>
+               </div>
+           </div>
+            <div class="row course-listing-extra-info col-xs-12">
+                <div class="col-xs-8">
+                    <img align="left" alt="John Thompson"
+                         src="../static/images/instructor_jt.jpg"
+                         th:src="@{'/images/'+${product.author.image}}"
+                         class="img-circle"/>
+                    <div class="small course-author-name" th:text="${(product.author.firstName)
+                                                          + ' ' + (product.author.lastName)}">
+                        Author Name
+                    </div>
+                </div>
+                <div class="col-xs-4">
+                    <div class="small course-price" th:text="${product.price > 0 ? '$' + product.price : 'FREE'}">
+                        $PRICE
+                    </div>
+                </div>
+            </div>
+            <div class="row col-xs-12">
+                <ol class="breadcrumb" >
+                    <li th:each="productCategory : ${product.productCategories}">
+                        <a href="#" th:text="${productCategory.category}">Cat 1</a></li>
+                    <li th:remove="all"><a href="#">Cat 2</a></li>
+                    <li th:remove="all"><a href="#">Cat 3</a></li>
+                </ol>
+            </div>
         </div>
         <div class="col-md-6">
              <div>
-                 <h2>Course Title</h2>
-                 <p>Adipiscing magna vestibulum fringilla tristique ad a primis ante mi inceptos condimentum curabitur
+                 <h2 th:text="${product.courseSubtitle}">Course Title</h2>
+                 <p th:text="${product.courseDescription}">Adipiscing magna vestibulum fringilla tristique ad a primis ante mi inceptos condimentum curabitur
                      curabitur eu sed nullam ridiculus nunc montes id nostra dui inceptos scelerisque posuere ipsum mus.
                      A scelerisque libero viverra eu condimentum mollis suscipit mi consectetur semper dis ipsum nisi
                      in nullam aliquet iaculis in eros euismod bibendum. Adipiscing volutpat fringilla bibendum duis a
@@ -176,6 +203,8 @@
         </div>
     </div>
 </div>
-
+<div class="container" th:replace="fragments/footer :: footer">
+    <p>footer</p>
+</div>
 </body>
 </html>

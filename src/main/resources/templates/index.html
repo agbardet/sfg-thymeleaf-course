@@ -5,10 +5,10 @@
     <title th:text="#{index.page.title}">Page Title</title>
 
     <link href="../static/css/bootstrap-3.3.4-dist/css/bootstrap.min.css" rel="stylesheet" media="screen"
-            th:href="@{/css/bootstrap-3.3.4-dist/css/bootstrap.min.css}"/>
+          th:href="@{/css/bootstrap-3.3.4-dist/css/bootstrap.min.css}"/>
 
     <script src="../static/js/jquery-2.1.4.min.js"
-          th:src="@{/js/jquery-2.1.4.min.js}"></script>
+            th:src="@{/js/jquery-2.1.4.min.js}"></script>
 
     <link th:href="@{/css/custom.css}" rel="stylesheet" media="screen"/>
 
@@ -132,7 +132,7 @@
 
 </head>
 <body>
-<div class="jumbotron">
+<div class="jumbotron" th:replace="fragments/jumbotron :: jumbotron">
     <div class="container">
         <h1>Spring Framework Guru</h1>
         <p class="lead" th:text="#{index.courses.tagline}">Tag line</p>
@@ -147,10 +147,34 @@
     </div>
 
     <div class="row course-list list">
+        <div class='row course-list list'>
+            <div th:each="product,it : ${products}">
+                <div th:if="${(it.count gt 0 and it.count lt 4)}">
+                    <div th:replace="fragments/productdiv :: productdiv">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row course-list list">
+        <div class='row course-list list'>
+            <div th:each="product,it : ${products}">
+                <div th:if="${(it.count gt 3 and it.count lt 7)}">
+                    <div th:replace="fragments/productdiv :: productdiv">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row course-list list" th:remove="all">
         <div class="col-md-4">
             <div class="course-listing">
                 <div class="row">
-                    <a href="product.html">
+                    <a href="product.html" th:href="@{/product/1}">
                         <div class="col-lg-12">
                             <div class="course-box-image-container">
                                 <img role="presentation"
@@ -188,7 +212,7 @@
         <div class="col-md-4">
             <div class="course-listing">
                 <div class="row">
-                    <a data-role="course-box-link" href="product.html">
+                    <a data-role="course-box-link" href="product.html" th:href="@{/product/4}">
                         <div class="col-lg-12">
                             <div class="course-box-image-container">
                                 <img role="presentation"
@@ -226,7 +250,7 @@
         <div class="col-md-4">
             <div class="course-listing">
                 <div class="row">
-                    <a data-role="course-box-link" href="product.html">
+                    <a data-role="course-box-link" href="product.html" th:href="@{/product/5}">
                         <div class="col-lg-12">
                             <div class="course-box-image-container">
                                 <img role="presentation"
@@ -263,11 +287,11 @@
         </div>
     </div>
 
-    <div class="row">
+    <div class="row course-list list" th:remove="all">
         <div class="col-md-4">
             <div class="course-listing">
                 <div class="row">
-                    <a data-role="course-box-link" href="product.html">
+                    <a data-role="course-box-link" href="product.html" th:href="@{/product/6}">
                         <div class="col-lg-12">
                             <div class="course-box-image-container">
                                 <img role="presentation"
@@ -306,7 +330,7 @@
         <div class="col-md-4">
             <div class="course-listing">
                 <div class="row">
-                    <a data-role="course-box-link" href="product.html">
+                    <a data-role="course-box-link" href="product.html" th:href="@{/product/2}">
                         <div class="col-lg-12">
                             <div class="course-box-image-container">
                                 <img role="presentation"
@@ -340,7 +364,7 @@
         <div class="col-md-4">
             <div class="course-listing">
                 <div class="row">
-                    <a data-role="course-box-link" href="product.html">
+                    <a data-role="course-box-link" href="product.html" th:href="@{/product/3}">
                         <div class="col-lg-12">
                             <div class="course-box-image-container">
                                 <img role="presentation"
@@ -377,6 +401,10 @@
             </div>
         </div>
     </div>
+</div>
+
+<div class="container" th:replace="fragments/footer :: footer">
+    <p>footer</p>
 </div>
 
 </body>
